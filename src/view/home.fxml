@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   
+   <top>
+      <HBox prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #03a9f4;" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="150.0" styleClass="left-pane" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#changeToEdit" styleClass="navigation-button" text="Edit Account" />
+            <Button fx:id="recentGamesButton" mnemonicParsing="false" onAction="#changeToGames" styleClass="navigation-button" text="Recent Games" />
+         </children>
+      </VBox>
+   </left>
+   
+     <stylesheets>
+    <URL value="@MainTheme.css" />
+  </stylesheets>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="102.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" prefWidth="461.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="641.0" minWidth="10.0" prefWidth="401.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="641.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="0.0" prefWidth="46.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="117.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="324.0" minHeight="0.0" prefHeight="291.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="536.0" minHeight="10.0" prefHeight="224.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="218.0" minHeight="0.0" prefHeight="218.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#changeToSport" style="-fx-background-color: orange;" styleClass="complete-button" text="+" GridPane.columnIndex="4" />
+            <Button fx:id="footballButton" mnemonicParsing="false" onAction="#changeToGames" prefHeight="26.0" prefWidth="451.0" style="-fx-background-color: #fff;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="235.0" fitWidth="311.0">
+                     <image>
+                        <Image url="@football_button.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

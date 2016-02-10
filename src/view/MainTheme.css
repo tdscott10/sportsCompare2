@@ -1,0 +1,21 @@
+.navigation-button{
+	-fx-background-color: none;
+	-fx-border-radius: 0;
+	-fx-padding: 5;
+	-fx-font-weight:bold;
+}
+
+.navigation-button:hover{
+	-fx-background-color:#e5e5e5;
+	-fx-border-radius: 0;
+	-fx-padding: 5;	
+}
+
+.left-pane{
+	-fx-border-color:#e8e8e8;
+	-fx-background-color:#fff;
+}
+
+.login-image{
+     -fx-image: url('sc_1x.png');
+}

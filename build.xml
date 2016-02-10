@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="CST316 Sports" basedir="."   xmlns:fx="javafx:com.sun.javafx.tools.ant" xmlns:jacoco="antlib:org.jacoco.ant">
+    
+    <property name="src.dir"     value="src"/>
+	<property name="src.fx"     value="src"/>
+	
+    <property name="build.dir"          value="build"/>
+    <property name="classes.dir"        value="${build.dir}/classes"/>
+    <property name="junit.classes.dir"  value="${classes.dir}"/>
+    <property name="jar.dir"            value="${build.dir}/dist"/>
+    <property name="deploy.dir"         value="${build.dir}/deploy"/>
+    <property name="lib.dir"            value="lib"/>
+    <property name="tests.dir"          value="${build.dir}/tests"/>
+    <property name="tests.junit.dir"    value="${tests.dir}/junit"/>
+    <property name="tests.jacoco.dir"   value="${tests.dir}/jacoco"/>
+    <property name="tests.pmd.dir"      value="${tests.dir}/pmd"/>
+    <property name="tests.findbugs.dir" value="${tests.dir}/findbugs"/>
+    
+    <path id="class.path">
+        <pathelement location="${junit.classes.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+	<taskdef resource="com/sun/javafx/tools/ant/antlib.xml"      
+	        uri="javafx:com.sun.javafx.tools.ant"
+	        classpath="${lib.dir}/ant-javafx.jar"/>
+    
+    <taskdef resource="org/jacoco/ant/antlib.xml"
+            uri="antlib:org.jacoco.ant"
+            classpath="${lib.dir}/jacocoant.jar"/>
+            
+    <taskdef name="pmd"
+            classname="net.sourceforge.pmd.ant.PMDTask"
+            classpathref="class.path"/>
+            
+    <taskdef name="findbugs"
+            classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+            classpath="${lib.dir}/findbugs-ant.jar"/>
+
+	<property name="javafx" value="${lib.dir}/jfxrt.jar"/>
+    
+    <property name="main-class-ui" value="view.RegistrationMain"/>
+    <property name="main-class-server"  value="model.ServerSetup"/>
+    <property name="main-class-build" value="model.BuildProfessionalDB"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+    
+    <target name="targets">
+        <echo message="Run UI: ant run-ui"/>
+        <echo message="Create databases: ant run-server"/>
+        <echo message="Run Tests: ant run-tests"/>
+        <echo message="Build Professional DB: ant run-buildDB"/>
+        <echo message="Deploy zipfile: ant run-deploy"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+    
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false"/>
+    </target>
+    
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="run-ui" depends="fx-deploy">
+        <java jar="build/dist/application.jar" fork="true"/>
+    </target>
+    
+    <target name="run-server" depends="jar">
+        <java fork="true" classname="${main-class-server}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="run-buildDB" depends="jar">
+        <java fork="true" classname="${main-class-build}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="clean-build" depends="clean,jar"/>
+
+	<target name="fx-compile">
+		<delete dir="build" />
+			<mkdir dir="build/src" />
+            <mkdir dir="build/lib"/>
+			<mkdir dir="build/classes" />
+            <mkdir dir="build/dist" />
+            <mkdir dir="build/dist/temp"/>
+		
+			<!-- Copy project-libs references -->
+			<copy todir="build/lib">
+				<fileset dir="${lib.dir}">
+				</fileset>
+			</copy>
+		
+			<!-- Copy project references -->
+		
+			<!-- Copy project sources itself -->
+			<copy todir="build/src">
+				<fileset dir="${src.fx}">
+					<include name="**/*"/>
+				</fileset>
+			</copy>
+		
+			<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="UTF-8">
+				<classpath>
+					<fileset dir="build/lib">
+						<include name="*"/>
+					</fileset>
+				</classpath>
+			</javac>
+		
+			<!-- Copy over none Java-Files -->
+			<copy todir="build/classes">
+			<fileset dir="${src.fx}">
+				<exclude name="**/*.java"/>
+                <exclude name="**/tests/*"/>
+			</fileset>
+			</copy>
+	</target>
+
+
+	<target name="fx-deploy" depends="fx-compile">
+
+	<fx:jar destfile="build/dist/temp/temp-application.jar">
+	    <!-- Details about application -->
+	    <fx:application name="CST316 Sports"
+	            mainClass="view.Main"/>
+
+	    <!-- Define what auxilary resources are needed -->
+	    <fx:resources>
+            <fx:fileset dir="lib" includes="*.jar"/>
+	    </fx:resources>
+
+	    <!-- What to include into result jar file?
+	         Everything in the build tree -->
+	    <fileset dir="build/dist">
+        </fileset>
+        <fileset dir="build/classes">
+            <exclude name="**/*.java"/>
+            <exclude name="**/tests/*"/>
+        </fileset>
+
+	    <!-- Customize jar manifest (optional) -->
+	    <manifest>
+	        <attribute name="Implementation-Vendor" value="CST316 Team J"/>
+	        <attribute name="Implementation-Version" value="1.0"/>
+	    </manifest>
+	</fx:jar>
+    
+    <jar jarfile="build/dist/temp/external-libs.jar">
+        <zipgroupfileset dir="build/lib" excludes="META-INF/**/*">
+            <include name="**/sqlite*.jar"/>
+			<include name="**/mail.jar"/>
+        </zipgroupfileset>
+    </jar>
+    <sleep seconds="1"/>
+    <jar jarfile="build/dist/application.jar">
+        <fileset dir="build/dist/" includes="**/*.*" excludes="**/temp/*"/>
+        <zipfileset src="build/dist/temp/external-libs.jar">
+            <exclude name="META-INF/**/*"/>
+        </zipfileset>
+        <zipfileset src="build/dist/temp/temp-application.jar">
+            <exclude name="META-INF/**/*"/>
+        </zipfileset>
+        <manifest>
+            <attribute name="Implementation-Vendor" value="CST316 Team J"/>
+            <attribute name="Implementation-Version" value="1.0"/>
+            <attribute name="Main-Class" value="view.Main"/>
+        </manifest>
+    </jar>
+    
+    <delete dir="build/dist/temp"/>
+    </target>
+    
+    <target name="run-tests" depends="fx-compile">
+        <delete dir="${test.junit.dir}"/>
+        <delete dir="${test.jacoco.dir}"/>
+        <mkdir dir="${tests.junit.dir}"/>
+        <mkdir dir="${tests.jacoco.dir}"/>
+        <mkdir dir="${tests.pmd.dir}"/>
+        <mkdir dir="${tests.findbugs.dir}"/>
+        <jacoco:coverage destfile="lib/jacoco.exec">
+        <junit printsummary="withOutAndErr" haltonfailure="no" fork="on">
+            <classpath>
+                <path refid="class.path" />
+            </classpath>
+            <formatter type="xml"/>
+            <batchtest todir="${tests.junit.dir}">
+                <fileset dir="${src.dir}">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+        </jacoco:coverage>
+        <junitreport todir="${tests.junit.dir}">
+            <fileset dir="${tests.junit.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" styledir="${lib.dir}" todir="${tests.junit.dir}" />
+        </junitreport>
+        
+        <jacoco:report>
+            <executiondata>
+                <file file="lib/jacoco.exec"/>
+            </executiondata>
+            <structure name="CST316 Example">
+                <classfiles>
+                    <fileset dir="${classes.dir}"/>
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="src"/>
+                </sourcefiles>
+            </structure>
+            <html destdir="${tests.jacoco.dir}"/>
+            <xml destfile="${tests.jacoco.dir}/jacoco.xml"/>
+            <csv destfile="${tests.jacoco.dir}/jacoco.csv"/>
+        </jacoco:report>
+        
+        <pmd shortFilenames="true">
+            <sourceLanguage name="java" version="1.8"/>
+            <ruleset>rulesets/java/design.xml</ruleset>
+            <ruleset>java-basic</ruleset>
+            <ruleset>java-naming</ruleset>
+            <ruleset>java-empty</ruleset>
+            <auxclasspath refid="class.path"/>
+            <formatter type="html" toFile="${tests.pmd.dir}/pmd_report_fromant.html" >
+                <param name="linkPrefix" value="http://pmd.sourceforge.net/xref/"/>
+            </formatter>
+            <formatter type="xml" toFile="${tests.pmd.dir}/pmd_report_fromant.xml" >
+                <param name="linkPrefix" value="http://pmd.sourceforge.net/xref/"/>
+            </formatter>
+            <fileset dir="${src.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+        </pmd>
+        
+        <findbugs home="lib"
+            output="xml"
+            outputFile="${tests.findbugs.dir}/findbugs.xml" >
+            <auxClasspath refid="class.path"/>
+            <sourcePath path="${src.dir}" />
+            <class location="${classes.dir}" />
+        </findbugs>
+    </target>
+    
+    <target name="run-deploy" depends="run-server, fx-deploy">
+        <copy todir="build/dist">
+            <fileset dir=".">
+                <include name="professional.db"/>
+                <include name="individual.db"/>
+            </fileset>
+        </copy>
+        
+        <zip destfile="${deploy.dir}/CST316_TeamJ.zip"
+        basedir="${jar.dir}"
+        update="true"
+        />
+    </target>
+</project>

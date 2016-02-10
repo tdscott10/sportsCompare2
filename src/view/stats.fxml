@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatsController">
+   
+   <top>
+      <HBox prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: #03a9f4;" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="150.0" styleClass="left-pane" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#changeToHome" styleClass="navigation-button" text="Home" />
+            <Button mnemonicParsing="false" onAction="#changeToGames" styleClass="navigation-button" text="Recent Games" />
+         </children>
+      </VBox>
+   </left>
+   
+     <stylesheets>
+    <URL value="@MainTheme.css" />
+  </stylesheets>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="8.0" prefWidth="148.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="341.0" minWidth="10.0" prefWidth="177.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="341.0" minWidth="10.0" prefWidth="46.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="341.0" minWidth="10.0" prefWidth="227.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="121.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="10.0" prefWidth="260.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="88.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="184.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="184.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="175.0" minHeight="0.0" prefHeight="92.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="167.0" minHeight="0.0" prefHeight="69.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="199.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="199.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="199.0" minHeight="10.0" prefHeight="167.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button alignment="BOTTOM_RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#changeToCompare" style="-fx-background-color: green;" text="Done" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+            <Label prefHeight="96.0" prefWidth="302.0" text="Game Details" GridPane.columnIndex="3">
+               <font>
+                  <Font size="36.0" />
+               </font></Label>
+            <Label text="Stats" GridPane.columnIndex="5">
+               <font>
+                  <Font size="36.0" />
+               </font></Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="175.0" text="Week:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="176.0" text="Date:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="174.0" text="Opponent:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Score" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="124.0" text="Opponent" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="97.0" text="Your Score" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="opponentTxt" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <TextField fx:id="yourScore" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="theirScore" prefHeight="26.0" prefWidth="58.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="7" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="113.0" text="Attempts:" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="113.0" text="Yards" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Label alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="119.0" text="Touchdowns:" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <TextField fx:id="attemptsTxt" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <TextField fx:id="yardsTxt" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <TextField fx:id="touchdownTxt" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <TextField fx:id="weekTxt" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="16.0" prefWidth="601.0" textFill="#eb0808" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

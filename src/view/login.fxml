@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.LoginController">
+  <center>
+    <GridPane style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <children>
+        <TextField fx:id="emailTxt" alignment="TOP_CENTER" promptText="Username / Email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <PasswordField fx:id="passwordTxt" alignment="TOP_CENTER" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#changeToHome" prefHeight="26.0" prefWidth="503.0" style="-fx-background-color: grey;" text="Login" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+        <Button mnemonicParsing="false" onAction="#changeToRegistration" prefHeight="26.0" prefWidth="503.0" style="-fx-background-color: red;" text="Sign Up" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+        <Button mnemonicParsing="false" onAction="#changeToQuickCompare" prefHeight="26.0" prefWidth="501.0" style="-fx-background-color: blue;" text="Quick Compare" textFill="#fcf8f8" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8" />
+        <Label alignment="CENTER" prefHeight="16.0" prefWidth="501.0" text="OR" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label fx:id="incorrectLabel" alignment="CENTER" prefHeight="16.0" prefWidth="501.0" textFill="#d31f07" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <ImageView fitHeight="373.0" fitWidth="497.0" pickOnBounds="true" preserveRatio="true" styleClass="login-image" GridPane.columnIndex="1" />
+        <Hyperlink fx:id="forgotPasswordLink" onAction="#openForgotPassword" alignment="CENTER" prefHeight="10.0" prefWidth="501.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.0" minWidth="10.0" prefWidth="333.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.0" minWidth="10.0" prefWidth="467.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="393.0" minHeight="10.0" prefHeight="393.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="187.0" minHeight="16.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="14.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="122.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </center>
+</BorderPane>
